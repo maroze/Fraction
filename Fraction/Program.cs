@@ -115,10 +115,10 @@ namespace Fraction
             Console.WriteLine("Деление: {0}", a / b);
             Console.WriteLine("Деление: {0}", a1 / b1);
             Console.WriteLine("Деление: {0}", a2 / b2);
+            a.MyEventCh += MyMetod;
+            a.MyEventZn += MyMetod1;            
             a.Ch = 10;
             a.Zn = 11;
-            a.MyEventCh += MyMetod;
-            a.MyEventZn += MyMetod1;
             Console.WriteLine("{0}, {1}", a.ch, a.zn);
             Console.WriteLine(a[0] + "/" + a[1]);
             Console.WriteLine(a.Ch + "/" + a.Zn);
