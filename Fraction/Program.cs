@@ -8,11 +8,10 @@ namespace Fraction
 {
     class Fractions
     {
-
         public int ch;
         public int zn;
 
-
+        #region Constructor
         public Fractions(int x, int y)
         {
             ch = x; zn = y;
@@ -27,14 +26,14 @@ namespace Fraction
         {
             ch = y * n + x; zn = y;
         }
-
+        #endregion
 
         public static double ToDouble(int ch, int zn)
         {
             return (double)ch / zn;
         }
 
-
+        #region Operator overloading
         public static Fractions operator +(Fractions a, Fractions b)
         {
             return new Fractions(a.ch * b.zn + b.ch * a.zn, a.zn * b.zn);
@@ -54,9 +53,12 @@ namespace Fraction
         {
             return new Fractions(a.ch * b.zn, b.ch * a.zn);
         }
+        #endregion
 
-        public override string ToString() => $"{ch} / {zn}";
-
+        public override string ToString()
+        {
+            return $"{ch} / {zn}";
+        }
 
         public static bool Znak(int ch, int zn)
         {
@@ -69,10 +71,13 @@ namespace Fraction
                 return false;
             }
         }
+
         public int this[int index]
         {
             get { return (index == 0) ? ch : zn; }
         }
+
+        #region Change event
         public delegate void Delegat(Fractions x, int y);
         public event Delegat MyEventCh;
         public event Delegat MyEventZn;
@@ -86,8 +91,8 @@ namespace Fraction
             get { return zn; }
             set { MyEventZn(this, value); zn = value; }
         }
+        #endregion
     }
-
 
     class Program
     {
@@ -96,39 +101,50 @@ namespace Fraction
             Fractions a = new Fractions(4, 3);
             Fractions a1 = new Fractions(4);
             Fractions a2 = new Fractions(4, 3, 5);
+
             Fractions b = new Fractions(1, 2);
             Fractions b1 = new Fractions(2);
             Fractions b2 = new Fractions(1, 2, 4);
+
             Console.WriteLine(Fractions.ToDouble(a.ch, a.zn));
             Console.WriteLine(Fractions.ToDouble(a1.ch, a1.zn));
             Console.WriteLine(Fractions.ToDouble(a2.ch, a2.zn));
+
             Console.WriteLine(Fractions.Znak(a.ch, a.zn));
+
             Console.WriteLine("Сложение: {0}", a + b);
             Console.WriteLine("Сложение: {0}", a1 + b1);
             Console.WriteLine("Сложение: {0}", a2 + b2);
+
             Console.WriteLine("Вычитание: {0}", a - b);
             Console.WriteLine("Вычитание: {0}", a1 - b1);
             Console.WriteLine("Вычитание: {0}", a2 - b2);
+
             Console.WriteLine("Умножение: {0}", a * b);
             Console.WriteLine("Умножение: {0}", a1 * b1);
             Console.WriteLine("Умножение: {0}", a2 * b2);
+
             Console.WriteLine("Деление: {0}", a / b);
             Console.WriteLine("Деление: {0}", a1 / b1);
             Console.WriteLine("Деление: {0}", a2 / b2);
+
             a.MyEventCh += MyMetod;
-            a.MyEventZn += MyMetod1;            
+            a.MyEventZn += MyMetod1;
             a.Ch = 10;
             a.Zn = 11;
+
             Console.WriteLine("{0}, {1}", a.ch, a.zn);
             Console.WriteLine(a[0] + "/" + a[1]);
             Console.WriteLine(a.Ch + "/" + a.Zn);
-     
+
             Console.ReadKey();
         }
+
         public static void MyMetod(Fractions x, int y)
         {
             Console.WriteLine("изменился числитель");
         }
+
         public static void MyMetod1(Fractions x, int y)
         {
             Console.WriteLine("изменился знаменатель");
